@@ -4,9 +4,10 @@ import cgi
 from http.server import BaseHTTPRequestHandler
 import io
 
+port = 8080
 
 class SimpleHandler(BaseHTTPRequestHandler):
-
+    ''' Handler for both POST and GET requests '''        
     def do_POST(self):
         # Parse the form data posted
         form = cgi.FieldStorage(
@@ -40,6 +41,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
         # Echo back information about what was posted in the form
         for field in form.keys():
             field_item = form[field]
+            # Regular form value
+            out.write('\t{}={}\n'.format(
+            field, form[field].value))
             if field_item.filename:
                 # The field contains an uploaded file
                 file_data = field_item.file.read()
@@ -95,6 +99,6 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     from http.server import HTTPServer
-    server = HTTPServer(('localhost', 8080), SimpleHandler)
+    server = HTTPServer(('localhost', port), SimpleHandler)
     print('Starting server, use <Ctrl-C> to stop')
     server.serve_forever()
