@@ -3,14 +3,14 @@ try:
     import MySQLdb
     # module has to be downloaded from http://sourceforge.net/projects/mysql-python/
 except ImportError:
-    print "To run this program download MySQLdb module from http://sourceforge.net/projects/mysql-python"
+    print ("To run this program download MySQLdb module from http://sourceforge.net/projects/mysql-python")
     exit()
 import cgi
     
 def htmlHeader(title):
-    print "Content-type: text/html"
-    print
-    print """<HTML>
+    print ("Content-type: text/html")
+    print ()
+    print ("""<HTML>
     <HEAD>
     <TITLE>%s</TITLE>
     </HEAD>
@@ -18,21 +18,21 @@ def htmlHeader(title):
     <IMG SRC='../icons/python-powered-w-200x80.png' ALIGN="LEFT">
     <IMG SRC='../icons/powered-by-mysql-167x86.png'ALIGN="RIGHT">
     <DIV ALIGN="CENTER">
-    <H1>Birthdays Database %s</H1><BR /><HR />""" % (title, title)
+    <H1>Birthdays Database %s</H1><BR /><HR />""" % (title, title))
     
 def htmlFooter():
-    print '<div align="center"><hr /><IMG SRC="../icons/apache_pb.gif">'
-    print '<BR /><font size="4">Created by Keith Wright<br />September 1, 2008</font>'
+    print ('<div align="center"><hr /><IMG SRC="../icons/apache_pb.gif">')
+    print ('<BR /><font size="4">Created by Keith Wright<br />September 1, 2008</font>')
     formHeader()
-    print '<INPUT TYPE="SUBMIT" VALUE="Show Code"><INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Code">'
+    print ('<INPUT TYPE="SUBMIT" VALUE="Show Code"><INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Code">')
     formFooter()
-    print '</div></DIV></BODY></HTML>'
+    print ('</div></DIV></BODY></HTML>')
 
 def formHeader():
-    print """<FORM METHOD="GET" ACTION="birthday.py">"""
+    print ("""<FORM METHOD="GET" ACTION="birthday.py">""")
     
 def formFooter():
-    print """</FORM>"""
+    print ("""</FORM>""")
     
 def openDb():
     global row, connection, cursor 
@@ -40,8 +40,8 @@ def openDb():
         connection = MySQLdb.connect(host="localhost",user="userbday1",passwd='passbday1',db="birthdays", port=3306)
         cursor = connection.cursor()
     except:
-        print 'Error Connecting to the birthdays database!'
-        print 'Make sure the MySQL database "birthdays" exists and the user, userbday1, has the correct password and proper privileges.'
+        print ('Error Connecting to the birthdays database!')
+        print ('Make sure the MySQL database "birthdays" exists and the user, userbday1, has the correct password and proper privileges.')
         #mysql>  grant all privileges on birthdays.* to userbday1@localhost identified by 'passbday1';
         
 def createTable(tblname):
@@ -53,10 +53,10 @@ def createTable(tblname):
 
 def confirmForm(sqlstring):
     formHeader()
-    print '<table border="0"><tr><INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'+sqlstring+'</tr>'
-    print '<th><INPUT NAME="Confirm" TYPE="SUBMIT" VALUE="Yes"></th>'
-    print '<th><INPUT NAME="Confirm" TYPE="SUBMIT" VALUE="No">'
-    print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Confirm"></th></table>'
+    print ('<table border="0"><tr><INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'+sqlstring+'</tr>')
+    print ('<th><INPUT NAME="Confirm" TYPE="SUBMIT" VALUE="Yes"></th>')
+    print ('<th><INPUT NAME="Confirm" TYPE="SUBMIT" VALUE="No">')
+    print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Confirm"></th></table>')
     formFooter()
     htmlFooter()
     
@@ -65,7 +65,7 @@ def execSQL(sqlstring,confirm=False):
     if confirm:        
         confirmForm(sqlstring)
     else:
-        print sqlstring  + '<BR />'
+        print (sqlstring  + '<BR />')
         openDb()
         cursor.execute(sqlstring)
         connection.close()
@@ -132,69 +132,69 @@ def delRecord(fname):
 def listRecords(sqlstring):
     record = 0
     formHeader()
-    print '<table border="1"><tr><th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="FirstName">'
-    print '<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'
-    print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">'
-    print 'ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">'
-    print 'DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>'
+    print ('<table border="1"><tr><th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="FirstName">')
+    print ('<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">')
+    print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">')
+    print ('ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">')
+    print ('DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>')
     formFooter()
     formHeader()
-    print '<th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="LastName">'
-    print '<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'
-    print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">'
-    print 'ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">'
-    print 'DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>'
+    print ('<th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="LastName">')
+    print ('<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">')
+    print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">')
+    print ('ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">')
+    print ('DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>')
     formFooter()
     formHeader()
-    print '<th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="BirthDate">'
-    print '<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'
-    print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">'
-    print 'ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">'
-    print 'DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>'
+    print ('<th><INPUT NAME="Field" TYPE="SUBMIT" VALUE="BirthDate">')
+    print ('<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">')
+    print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort">')
+    print ('ASC<INPUT TYPE="RADIO" CHECKED NAME="Direction" VALUE="ASC">')
+    print ('DESC<INPUT TYPE="RADIO" NAME="Direction" VALUE="DESC"></th>')
     formFooter()
     formHeader()
-    print '<th colspan="2"><INPUT NAME="Field" TYPE="SUBMIT" VALUE="Clear Sort">'
-    print '<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">'
-    print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort"></th></tr>'
+    print ('<th colspan="2"><INPUT NAME="Field" TYPE="SUBMIT" VALUE="Clear Sort">')
+    print ('<INPUT TYPE="HIDDEN" NAME="SQL" VALUE="'+sqlstring+'">')
+    print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Sort"></th></tr>')
     formFooter()
     for row in rows:
-        print '<tr>',
+        print ('<tr>')
         formHeader()
-        print '<td><INPUT NAME="FirstName" TYPE="TEXT" SIZE="20" MAXLENGTH="20" VALUE="' + \
+        print ('<td><INPUT NAME="FirstName" TYPE="TEXT" SIZE="20" MAXLENGTH="20" VALUE="' + \
         row[0] +'"</td>' + \
         '<td><INPUT NAME="LastName" TYPE="TEXT" SIZE="30" MAXLENGTH="30" VALUE="' + \
         row[1] +'"</td>' + \
         '<td><INPUT NAME="BirthDate" TYPE="TEXT" SIZE="10" MAXLENGTH="10" VALUE="' + \
-        str(row[2]) +'"</td>'
-        print '<td><INPUT TYPE="SUBMIT" VALUE="Edit">'
-        print '<INPUT TYPE="HIDDEN" NAME="Key" VALUE="'+row[0]+'">',
-        print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Edit"></td>'
+        str(row[2]) +'"</td>')
+        print ('<td><INPUT TYPE="SUBMIT" VALUE="Edit">')
+        print ('<INPUT TYPE="HIDDEN" NAME="Key" VALUE="'+row[0]+'">',)
+        print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Edit"></td>')
         formFooter()
         formHeader()
-        print '<td><INPUT TYPE="SUBMIT" VALUE="Delete">',
-        print '<INPUT TYPE="HIDDEN" NAME="Key" VALUE="'+row[0]+'">',
-        print '<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Delete"></td>'
-        print '</tr>'
+        print ('<td><INPUT TYPE="SUBMIT" VALUE="Delete">',)
+        print ('<INPUT TYPE="HIDDEN" NAME="Key" VALUE="'+row[0]+'">',)
+        print ('<INPUT TYPE="HIDDEN" NAME="Flag" VALUE="Delete"></td>')
+        print ('</tr>')
         formFooter()
         record +=1
     else:
         formHeader()
-        print """
+        print ("""
         <td><INPUT NAME="FirstName" TYPE="TEXT" SIZE="20" MAXLENGTH="20"></td>
         <td><INPUT NAME="LastName" TYPE="TEXT" SIZE="30" MAXLENGTH="30"></td>
         <td><INPUT NAME="BirthDate" TYPE="TEXT" SIZE="10" MAXLENGTH="10"></td>
         <td><INPUT TYPE="HIDDEN" NAME="Flag" VALUE="AddSearch">
         <INPUT TYPE="SUBMIT" VALUE="Add" NAME="SUBMIT"></td>
-        <td><INPUT TYPE="SUBMIT" VALUE="Search" NAME="SUBMIT"></td>"""
+        <td><INPUT TYPE="SUBMIT" VALUE="Search" NAME="SUBMIT"></td>""")
         formFooter()
-        print '</table>',
+        print ('</table>',)
     
 def showCode():
-    print "Content-type: text/plain"
-    print ""
+    print ("Content-type: text/plain")
+    print ("")
     f = open("birthday.py")
     for line in f:
-        print line,
+        print (line,)
     f.close()
     
 def main():
@@ -285,15 +285,15 @@ def testDb():
     try:
         openDb()
     except:
-        print 'Error Connecting to the Birthdays Database!'
+        print ('Error Connecting to the Birthdays Database!')
     try:
-        print createTable('birthdays')
+        print (createTable('birthdays'))
         # use above to create table the first time
     except:
-        print 'Table Birthdays already exists'
+        print ('Table Birthdays already exists')
     finally:
         htmlFooter()
     
 if __name__ == "__main__":
-    #testDb()
+    testDb()
     main()
